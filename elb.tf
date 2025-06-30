@@ -14,7 +14,7 @@ resource "aws_elb" "babaji-elb"{
     target = "http:80/index.html"
     interval = 30
   }
-  instances = [aws_instance.babaji-web[1].id, aws_instance.babaji-web[2].id]
+  instances = [aws_instance.babaji-web[0].id, aws_instance.babaji-web[1].id]
   cross_zone_load_balancing = true
   idle_timeout = 100
   connection_draining = true
@@ -22,4 +22,7 @@ resource "aws_elb" "babaji-elb"{
   tags = {
     Name = var.elbname
   }
+}
+output "aws_elb"{
+  value = aws_elb.babaji-elb.dns_name
 }
